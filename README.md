@@ -1,5 +1,4 @@
-# Adaptive Trust-Aware Multi-Agent Prompt Injection Detection
-### Using LLM-as-Judge and Coalition Game Theory
+# Adaptive Trust-Aware Multi-Agent Prompt Injection Detection Using LLM-as-Judge and Coalition Game Theory
 
 A research prototype that combines **five specialised LLM agents**, **adaptive
 trust scores**, **coalition game theory**, and an **LLM-as-Judge** to detect
