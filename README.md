@@ -98,8 +98,9 @@ curl -fsSL https://ollama.ai/install.sh | sh
 # 2. Start Ollama service
 ollama serve
 
-# 3. Pull the model
-ollama pull qwen3:8b
+# 3. Pull the models
+ollama pull qwen2.5:3b
+ollama pull qwen3:4b
 ```
 
 ### Installation
