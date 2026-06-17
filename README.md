@@ -40,7 +40,7 @@ User Prompt
 
 Every agent returns:
 ```json
-{ "vote": "attack" | "benign", "confidence": 0.85, "reason": "..." }
+{ "vote": "attack" or "benign", "confidence": 0.xx, "reason": "..." }
 ```
 
 ### 2. Trust System (`trust/`)
@@ -52,7 +52,7 @@ T_new = alpha * result + (1 - alpha) * T_old
 ```
 - `alpha = 0.1` (slow adaptation)
 - `result = 1` if prediction was correct, else `0`
-- Initial trust = `0.7`
+- Initial trust = `0.5`
 
 Voting weight = `confidence × trust`
 
