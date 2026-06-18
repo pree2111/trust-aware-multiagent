@@ -11,6 +11,7 @@ class TrustManager:
         }
 
         self.alpha = 0.1
+
     def update(self, agent_name, correct):
 
         old = self.trust[agent_name]
@@ -24,3 +25,13 @@ class TrustManager:
         )
 
         self.trust[agent_name] = new
+
+        return new
+
+    def get_trust(self, agent_name):
+
+        return self.trust[agent_name]
+
+    def get_all_trust(self):
+
+        return self.trust
