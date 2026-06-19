@@ -102,23 +102,81 @@ for i, (_, row) in enumerate(df.iterrows()):
     correct = (
         prediction == label
     )
+    for agent_result in agent_results:
+
+        agent_name = agent_result["agent"]
+
+        agent_correct = (
+            agent_result["vote"]
+            == label
+        )
+
+        trust_manager.update(
+            agent_name,
+            agent_correct
+        )
 
     results.append(
-        {
-            "prompt": prompt,
-            "label": label,
-            "prediction": prediction,
-            "correct": correct,
-            "attack_score":
-                coalition_result[
-                    "attack_score"
-                ],
-            "benign_score":
-                coalition_result[
-                    "benign_score"
-                ]
-        }
-    )
+    {
+        "prompt": prompt,
+
+        "label": label,
+
+        "prediction": prediction,
+
+        "correct": correct,
+
+        "attack_score":
+            coalition_result[
+                "attack_score"
+            ],
+
+        "benign_score":
+            coalition_result[
+                "benign_score"
+            ],
+
+        "semantic_vote":
+            agent_results[0]["vote"],
+
+        "override_vote":
+            agent_results[1]["vote"],
+
+        "leakage_vote":
+            agent_results[2]["vote"],
+
+        "role_hijack_vote":
+            agent_results[3]["vote"],
+
+        "benign_validator_vote":
+            agent_results[4]["vote"],
+
+        "semantic_trust":
+            trust_manager.get_trust(
+                "semantic"
+            ),
+
+        "override_trust":
+            trust_manager.get_trust(
+                "override"
+            ),
+
+        "leakage_trust":
+            trust_manager.get_trust(
+                "leakage"
+            ),
+
+        "role_hijack_trust":
+            trust_manager.get_trust(
+                "role_hijack"
+            ),
+
+        "benign_validator_trust":
+            trust_manager.get_trust(
+                "benign_validator"
+            )
+    }
+)
 
 results_df = pd.DataFrame(
     results
