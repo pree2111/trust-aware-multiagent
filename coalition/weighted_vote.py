@@ -130,28 +130,28 @@ class WeightedVote:
 
         return {
 
-            "verdict": verdict,
+    "verdict": verdict,
 
-            "severity": severity,
+    "severity": severity,
 
-            "consensus": consensus,
+    "consensus": consensus,
 
-            "attack_score": round(
-                attack_score,
-                4
-            ),
+    "attack_score": round(
+        attack_score,
+        4
+    ),
 
-            "benign_score": round(
-                benign_score,
-                4
-            ),
+    "benign_score": round(
+        benign_score,
+        4
+    ),
 
-            "attack_coalition":
-                attack_coalition,
+    "attack_coalition":
+        attack_coalition,
 
-            "benign_coalition":
-                benign_coalition,
+    "benign_coalition":
+        benign_coalition,
 
-            "agent_details":
-                detailed_results
-        }
+    "agent_details":
+        detailed_results
+}

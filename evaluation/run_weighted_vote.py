@@ -19,7 +19,7 @@ from agents.override_agent import OverrideDetector
 from agents.leakage_agent import LeakageDetector
 from agents.role_hijack_agent import RoleHijackDetector
 from agents.benign_validator import BenignIntentValidator
-
+from judge.llm_judge import LLMJudge
 from trust.trust_manager import TrustManager
 from coalition.weighted_vote import WeightedVote
 
@@ -41,7 +41,9 @@ trust_manager = TrustManager()
 weighted_voter = WeightedVote(
     trust_manager
 )
-
+judge = LLMJudge(
+    llm
+)
 results = []
 
 for i, (_, row) in enumerate(df.iterrows()):
@@ -94,6 +96,12 @@ for i, (_, row) in enumerate(df.iterrows()):
     coalition_result = weighted_voter.decide(
         agent_results
     )
+    print(coalition_result)
+    judge_result = judge.evaluate(
+    prompt,
+    coalition_result,
+    agent_results
+    )
 
     prediction = coalition_result[
         "verdict"
@@ -134,6 +142,24 @@ for i, (_, row) in enumerate(df.iterrows()):
         "benign_score":
             coalition_result[
                 "benign_score"
+            ],
+        "severity":
+            coalition_result[
+                "severity"
+            ],
+
+        "consensus":
+            coalition_result[
+                "consensus"
+            ],
+        "judge_consensus":
+            judge_result[
+                "consensus"
+            ],
+
+        "judge_explanation":
+            judge_result[
+                "explanation"
             ],
 
         "semantic_vote":
