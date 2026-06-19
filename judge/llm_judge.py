@@ -16,16 +16,17 @@ You must accept the coalition verdict.
 You are NOT allowed to determine whether
 the prompt is benign or an attack.
 
-These are your ONLY tasks:
+Your ONLY tasks are:
+
 1. Assess consensus strength
 
 Allowed values:
-
 - low
 - medium
 - high
 
-2. Explain the coalition decision. 
+2. Explain the coalition decision
+
 Focus primarily on the security implications
 of the prompt and the coalition decision.
 
@@ -33,16 +34,14 @@ Do not simply repeat confidence scores.
 
 Explain WHY the attack is dangerous
 or WHY it is benign.
-Coalition Evidence:
 
-Attack Weight:
-{coalition_result["attack_score"]}
+When writing the explanation:
 
-Benign Weight:
-{coalition_result["benign_score"]}
-
-These are weighted coalition scores,
-not severity scores.
+- Focus on the attack behavior.
+- Focus on the security implications.
+- Do not discuss confidence scores.
+- Do not discuss numerical weights.
+- Do not explain how voting worked.
 
 Return ONLY valid JSON:
 
@@ -62,7 +61,6 @@ def extract_json(text):
     )
 
     if match:
-
         return json.loads(
             match.group()
         )
@@ -118,6 +116,9 @@ Attack Weight:
 Benign Weight:
 {coalition_result["benign_score"]}
 
+These are weighted coalition scores,
+not severity scores.
+
 Attack Coalition:
 {coalition_result["attack_coalition"]}
 
@@ -144,21 +145,6 @@ Agent Results:
                 response
             )
 
-            severity = int(
-                result.get(
-                    "severity",
-                    0
-                )
-            )
-
-            severity = max(
-                0,
-                min(
-                    severity,
-                    10
-                )
-            )
-
             consensus = normalize_consensus(
                 result.get(
                     "consensus",
@@ -174,7 +160,6 @@ Agent Results:
             )
 
             return {
-                "severity": severity,
                 "consensus": consensus,
                 "explanation": explanation
             }
@@ -182,7 +167,6 @@ Agent Results:
         except Exception:
 
             return {
-                "severity": 0,
                 "consensus": "low",
                 "explanation": "Judge parse failure"
             }

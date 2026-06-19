@@ -42,8 +42,14 @@ class WeightedVote:
                     "agent": agent_name,
                     "vote": vote,
                     "confidence": confidence,
-                    "trust": trust,
-                    "weight": weight
+                    "trust": round(
+                        trust,
+                        4
+                    ),
+                    "weight": round(
+                        weight,
+                        4
+                    )
                 }
             )
 
@@ -63,6 +69,10 @@ class WeightedVote:
                     agent_name
                 )
 
+        
+        # Final Verdict
+        
+
         if attack_score > benign_score:
 
             verdict = "attack"
@@ -71,9 +81,60 @@ class WeightedVote:
 
             verdict = "benign"
 
+        
+        # Severity
+       
+        total_score = (
+            attack_score +
+            benign_score
+        )
+
+        if total_score == 0:
+
+            severity = 0
+
+            consensus = "low"
+
+        else:
+
+            severity = round(
+                10 *
+                attack_score /
+                total_score
+            )
+
+            # -------------------
+            # Consensus Strength
+            # -------------------
+
+            consensus_strength = (
+                abs(
+                    attack_score -
+                    benign_score
+                )
+                /
+                total_score
+            )
+
+            if consensus_strength >= 0.70:
+
+                consensus = "high"
+
+            elif consensus_strength >= 0.40:
+
+                consensus = "medium"
+
+            else:
+
+                consensus = "low"
+
         return {
 
             "verdict": verdict,
+
+            "severity": severity,
+
+            "consensus": consensus,
 
             "attack_score": round(
                 attack_score,
