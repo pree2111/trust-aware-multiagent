@@ -209,7 +209,7 @@ results_df = pd.DataFrame(
 )
 
 results_df.to_csv(
-    "results/results.csv",
+    "results/qwen2.5_3b/results.csv",
     index=False
 )
 
