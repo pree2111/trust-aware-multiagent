@@ -13,3 +13,6 @@ results/
 
 # VS Code
 .vscode/
+
+#data
+data/data_generation.ipynb
