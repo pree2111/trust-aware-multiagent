@@ -152,10 +152,6 @@ for i, (_, row) in enumerate(df.iterrows()):
             coalition_result[
                 "consensus"
             ],
-        "judge_consensus":
-            judge_result[
-                "consensus"
-            ],
 
         "judge_explanation":
             judge_result[
