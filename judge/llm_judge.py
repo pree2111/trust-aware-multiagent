@@ -16,9 +16,7 @@ You must accept the coalition verdict.
 You are NOT allowed to determine whether
 the prompt is benign or an attack.
 
-Your ONLY tasks are:
-
-Explain the coalition decision
+Your ONLY task is to explain the coalition's decision.
 
 Focus primarily on the security implications
 of the prompt and the coalition decision.
@@ -34,7 +32,7 @@ When writing the explanation:
 - Focus on the security implications.
 - Do not discuss confidence scores.
 - Do not discuss numerical weights.
-- Do not explain how voting worked.
+- Do not explain how weighted voting works.
 
 Return ONLY valid JSON:
 
@@ -62,7 +60,6 @@ def extract_json(text):
     )
 
 
-
 class LLMJudge:
 
     def __init__(self, llm):
@@ -85,22 +82,14 @@ Prompt:
 Coalition Verdict:
 {coalition_result["verdict"]}
 
-Coalition Evidence:
-
-Attack Weight:
+Attack Score:
 {coalition_result["attack_score"]}
 
-Benign Weight:
+Benign Score:
 {coalition_result["benign_score"]}
 
-These are weighted coalition scores,
-not severity scores.
-
-Attack Coalition:
-{coalition_result["attack_coalition"]}
-
-Benign Coalition:
-{coalition_result["benign_coalition"]}
+Consensus Level:
+{coalition_result["consensus"]}
 
 Agent Results:
 {json.dumps(agent_results, indent=2)}
@@ -121,8 +110,6 @@ Agent Results:
             result = extract_json(
                 response
             )
-
-            
 
             explanation = str(
                 result.get(
