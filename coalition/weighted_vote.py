@@ -70,7 +70,6 @@ class WeightedVote:
                 )
 
         
-        # Final Verdict
         
 
         if attack_score > benign_score:
@@ -81,8 +80,7 @@ class WeightedVote:
 
             verdict = "benign"
 
-        
-        # Severity
+
        
         total_score = (
             attack_score +
@@ -103,10 +101,7 @@ class WeightedVote:
                 total_score
             )
 
-            # -------------------
-            # Consensus Strength
-            # -------------------
-
+        
             consensus_strength = (
                 abs(
                     attack_score -
